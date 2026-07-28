@@ -1,0 +1,58 @@
+Experiment-1.1 Contain Duplicate (LC-217)
+Aim:To write a program that checks whether an integer array contains any duplicate element and returns true if any element appears more than once; otherwise, returns false.
+Algorithm:
+1.Sort the given array in ascending order.
+2.Traverse the array from the second element (i = 1) to the last element.
+3.Compare the current element with the previous element.
+If they are equal, a duplicate exists, so return true.
+4.If no adjacent elements are equal after the traversal, return false.
+
+Code:
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i - 1] == nums[i]) {
+                return true;    
+            }
+        }
+        return false;
+    }
+};
+
+
+
+
+Experiment-1.2 Contain Duplicate 2(LC-219)
+Aim:To write a program that checks whether an integer array contains two equal elements such that the absolute difference between their indices is less than or equal to k, and returns true if such a pair exists; otherwise, returns false.
+Algorithm:
+1. Start.
+2. Create an empty hash map (unordered_map) to store each element and its most recent index.
+3. Traverse the array from index 0 to n-1.
+4. For each element:
+Check if the element already exists in the hash map.
+If it exists, calculate the difference between the current index and the stored index.
+If the difference is less than or equal to k, return true.
+5.Update the hash map with the current element and its index.
+6.If the entire array is traversed without finding such a pair, return false.
+7.Stop.
+
+Code:
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        for (int i = 0; i < nums.size(); i++) {
+            if (mp.find(nums[i]) != mp.end()) {
+                if (i - mp[nums[i]] <= k) {
+                    return true;
+                }
+            }
+            mp[nums[i]] = i;
+        }
+        return false;
+    }
+};
+
+
